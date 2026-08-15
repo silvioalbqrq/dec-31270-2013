@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora ICMS-ST | Decreto 31.270/2013 – SEFAZ-CE</title>
+  <meta name="description" content="Calcule o valor do ICMS por Substituição Tributária com carga líquida nas operações com material de construção, ferragens e ferramentas – Decreto nº 31.270/2013 (Ceará).">
+  <link rel="canonical" href="https://silvioalbqrq.github.io/dec-31270-2013/">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Calculadora ICMS-ST | Decreto 31.270/2013 – SEFAZ-CE">
+  <meta property="og:description" content="Calcule o valor do ICMS por Substituição Tributária com carga líquida nas operações com material de construção, ferragens e ferramentas – Decreto nº 31.270/2013 (Ceará).">
+  <meta property="og:url" content="https://silvioalbqrq.github.io/dec-31270-2013/">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Calculadora ICMS-ST | Decreto 31.270/2013 – SEFAZ-CE">
+  <meta name="twitter:description" content="Calcule o valor do ICMS por Substituição Tributária com carga líquida nas operações com material de construção, ferragens e ferramentas – Decreto nº 31.270/2013 (Ceará).">
+  <style>
+    :root {
+      --primary: #0b3d5c;
+      --primary-light: #1565a0;
+      --accent: #e67e22;
+      --bg: #f4f7fa;
+      --card: #ffffff;
+      --text: #1a1a1a;
+      --muted: #5a6a7a;
+      --border: #dce3ea;
+      --success: #1e7e34;
+      --danger: #c0392b;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+    header {
+      background: linear-gradient(135deg, var(--primary) 0%, var(--primary-light) 100%);
+      color: white;
+      padding: 1.5rem 1rem;
+      text-align: center;
+      box-shadow: 0 2px 12px rgba(0,0,0,.15);
+    }
+    header h1 { font-size: 1.45rem; font-weight: 700; margin-bottom: .35rem; }
+    header p { font-size: .9rem; opacity: .92; max-width: 640px; margin: 0 auto; }
+    .container {
+      max-width: 780px;
+      margin: 1.5rem auto;
+      padding: 0 1rem 2.5rem;
+    }
+    .card {
+      background: var(--card);
+      border-radius: 12px;
+      box-shadow: 0 4px 18px rgba(0,0,0,.07);
+      padding: 1.5rem;
+      margin-bottom: 1.25rem;
+      border: 1px solid var(--border);
+    }
+    .card h2 {
+      font-size: 1.1rem;
+      color: var(--primary);
+      margin-bottom: 1rem;
+      padding-bottom: .5rem;
+      border-bottom: 2px solid var(--border);
+    }
+    label {
+      display: block;
+      font-weight: 600;
+      font-size: .88rem;
+      margin-bottom: .35rem;
+      color: var(--primary);
+    }
+    .field { margin-bottom: 1.1rem; }
+    select, input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: .65rem .8rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 1rem;
+      background: #fff;
+      transition: border-color .2s;
+    }
+    select:focus, input:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      box-shadow: 0 0 0 3px rgba(21,101,160,.15);
+    }
+    .row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+    @media (max-width: 560px) {
+      .row { grid-template-columns: 1fr; }
+    }
+    .hint {
+      font-size: .78rem;
+      color: var(--muted);
+      margin-top: .3rem;
+    }
+    .btn {
+      display: inline-block;
+      background: var(--primary);
+      color: white;
+      border: none;
+      padding: .85rem 1.6rem;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      cursor: pointer;
+      width: 100%;
+      transition: background .2s;
+    }
+    .btn:hover { background: var(--primary-light); }
+    .btn-secondary {
+      background: #6c757d;
+      margin-top: .6rem;
+    }
+    .btn-secondary:hover { background: #5a6268; }
+    .result-box {
+      background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+      border: 2px solid #a5d6a7;
+      border-radius: 10px;
+      padding: 1.25rem;
+      margin-top: 1rem;
+      display: none;
+    }
+    .result-box.visible { display: block; }
+    .result-box h3 {
+      color: var(--success);
+      font-size: 1rem;
+      margin-bottom: .75rem;
+    }
+    .result-value {
+      font-size: 1.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      margin: .4rem 0;
+    }
+    .result-detail {
+      font-size: .9rem;
+      color: var(--muted);
+      margin-top: .6rem;
+      line-height: 1.6;
+    }
+    .result-detail strong { color: var(--text); }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .82rem;
+      margin-top: .75rem;
+    }
+    th, td {
+      border: 1px solid var(--border);
+      padding: .45rem .55rem;
+      text-align: left;
+    }
+    th { background: #eef3f7; color: var(--primary); font-weight: 600; }
+    .note {
+      background: #fff8e6;
+      border-left: 4px solid var(--accent);
+      padding: .85rem 1rem;
+      font-size: .85rem;
+      color: #5d4e37;
+      border-radius: 0 8px 8px 0;
+      margin-top: 1rem;
+    }
+    footer {
+      text-align: center;
+      font-size: .78rem;
+      color: var(--muted);
+      padding: 1.5rem 1rem;
+      border-top: 1px solid var(--border);
+      background: #fff;
+    }
+    footer a { color: var(--primary-light); }
+    .tabs {
+      display: flex;
+      gap: .5rem;
+      margin-bottom: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .tab {
+      flex: 1;
+      min-width: 140px;
+      padding: .7rem;
+      text-align: center;
+      background: #e9eef3;
+      border: 2px solid transparent;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: .9rem;
+      color: var(--muted);
+      transition: all .2s;
+    }
+    .tab.active {
+      background: white;
+      border-color: var(--primary);
+      color: var(--primary);
+      box-shadow: 0 2px 8px rgba(11,61,92,.12);
+    }
+    .panel { display: none; }
+    .panel.active { display: block; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Calculadora ICMS-ST – Material de Construção</h1>
+    <p>Decreto nº 31.270/2013 (SEFAZ-CE) · Substituição Tributária com carga líquida para material de construção, ferragens e ferramentas</p>
+  </header>
+
+  <div class="container">
+    <div class="tabs">
+      <div class="tab active" data-tab="atacado-varejo">Atacadista / Varejista</div>
+      <div class="tab" data-tab="industria">Indústria (fabricante)</div>
+      <div class="tab" data-tab="tabela">Tabela Anexo III</div>
+    </div>
+
+    <!-- Painel Atacadista / Varejista -->
+    <div id="panel-atacado-varejo" class="panel active">
+      <div class="card">
+        <h2>Cálculo – Atacadista ou Varejista (Art. 3º)</h2>
+        <p class="hint" style="margin-bottom:1rem;">Base = valor do documento fiscal (IPI + frete + seguro + outros encargos) × (1 + 35%) × percentual de carga líquida do Anexo III.</p>
+
+        <div class="field">
+          <label for="tipoContribuinte">Tipo de contribuinte</label>
+          <select id="tipoContribuinte">
+            <option value="atacadista">Atacadista (Anexo I)</option>
+            <option value="varejista">Varejista (Anexo II)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="origem">Origem da mercadoria</label>
+          <select id="origem">
+            <option value="proprio">Próprio Estado (CE) ou Exterior do País</option>
+            <option value="norte">Regiões Norte, Nordeste, Centro-Oeste e ES</option>
+            <option value="sul">Regiões Sul e Sudeste (exceto ES)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="aliquota">Carga tributária efetiva / Alíquota interna do produto</label>
+          <select id="aliquota">
+            <option value="7">7% – Cesta básica</option>
+            <option value="9.72">9,72% – Álcool (não combustível) gel antisséptico ≤ 1L</option>
+            <option value="12">12% – Cesta básica</option>
+            <option value="20" selected>20% (geral – material de construção etc.)</option>
+            <option value="25">25% – Álcool (não combustível) líquido/gel NÃO antisséptico ≤ 1L</option>
+            <option value="28">28%</option>
+          </select>
+          <p class="hint">Para a maioria dos materiais de construção, ferragens e ferramentas use 20% (alíquota interna geral do CE, Decreto nº 35.807/2023).</p>
+        </div>
+
+        <div class="field">
+          <label for="valorDoc">Valor do documento fiscal (R$)</label>
+          <input type="number" id="valorDoc" min="0" step="0.01" placeholder="Ex: 10000,00">
+          <p class="hint">Inclua IPI, frete, carreto, seguro e demais encargos transferidos ao destinatário.</p>
+        </div>
+
+        <div class="row">
+          <div class="field">
+            <label for="mva">MVA (%)</label>
+            <input type="number" id="mva" value="35" min="0" step="0.01">
+            <p class="hint">Padrão: 35%. Transferência: 50% (art. 3º, §5º).</p>
+          </div>
+          <div class="field">
+            <label for="adicionalSN">Adicional Simples Nacional?</label>
+            <select id="adicionalSN">
+              <option value="0">Não</option>
+              <option value="3">Sim – Internas (+3%)</option>
+              <option value="4">Sim – Sul/Sudeste (+4%)</option>
+              <option value="6">Sim – Norte/NE/CO/ES (+6%)</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="btn" onclick="calcularAtacadoVarejo()">Calcular ICMS-ST</button>
+        <button class="btn btn-secondary" onclick="limpar('atacado')">Limpar</button>
+
+        <div id="resultadoAV" class="result-box">
+          <h3>Resultado do cálculo</h3>
+          <div class="result-value" id="valorST_AV">R$ 0,00</div>
+          <div class="result-detail" id="detalheAV"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Painel Indústria -->
+    <div id="panel-industria" class="panel">
+      <div class="card">
+        <h2>Cálculo – Indústria / Fabricante (Art. 2º e 2º-A)</h2>
+        <p class="hint" style="margin-bottom:1rem;">Base = valor da operação × (1 + 45%) × carga líquida (7,64% ou 4,49% para cerâmica específica).</p>
+
+        <div class="field">
+          <label for="tipoIndustria">Tipo de indústria</label>
+          <select id="tipoIndustria">
+            <option value="geral">Geral – material de construção, ferragens e ferramentas (7,64%)</option>
+            <option value="ceramica">Cerâmica / barro cozido – CNAEs 2342-7/02 e 2349-4/99 (4,49%)</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label for="valorOperacao">Valor da operação (R$)</label>
+          <input type="number" id="valorOperacao" min="0" step="0.01" placeholder="Ex: 10000,00">
+        </div>
+
+        <div class="field">
+          <label for="mvaInd">MVA (%)</label>
+          <input type="number" id="mvaInd" value="45" min="0" step="0.01">
+        </div>
+
+        <div class="field">
+          <label for="ajusteAliquota">Ajuste proporcional (alíquota do produto diferente de 20%)?</label>
+          <select id="ajusteAliquota">
+            <option value="nao">Não (usar carga padrão)</option>
+            <option value="sim">Sim – informar alíquota efetiva do produto</option>
+          </select>
+        </div>
+
+        <div class="field" id="campoAliqProd" style="display:none;">
+          <label for="aliqProduto">Alíquota efetiva do produto (%)</label>
+          <input type="number" id="aliqProduto" min="0" step="0.01" value="20" placeholder="Ex: 18 ou 20">
+        </div>
+
+        <button class="btn" onclick="calcularIndustria()">Calcular ICMS-ST</button>
+        <button class="btn btn-secondary" onclick="limpar('industria')">Limpar</button>
+
+        <div id="resultadoInd" class="result-box">
+          <h3>Resultado do cálculo</h3>
+          <div class="result-value" id="valorST_Ind">R$ 0,00</div>
+          <div class="result-detail" id="detalheInd"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Painel Tabela -->
+    <div id="panel-tabela" class="panel">
+      <div class="card">
+        <h2>Anexo III – Carga Líquida da ST (conforme origem)</h2>
+        <p class="hint" style="margin-bottom:.8rem;">Valores de referência conforme redação consolidada do Anexo III dada pelo Decreto nº 35.807/2023, já com a alíquota interna geral do CE em 20%. Use a aba de cálculo para valores atualizados e ajuste automático.</p>
+        <div style="overflow-x:auto;">
+          <table>
+            <thead>
+              <tr>
+                <th>Contribuinte</th>
+                <th>Mercadoria (carga efetiva)</th>
+                <th>Próprio Estado / Exterior</th>
+                <th>Norte, NE, CO e ES</th>
+                <th>Sul e Sudeste (exc. ES)</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr><td rowspan="6"><strong>Atacadista</strong></td><td>7% – Cesta básica</td><td>2,96%</td><td>5,50%</td><td>7,25%</td></tr>
+              <tr><td>9,72% – Álcool gel antisséptico ≤1L</td><td>2,82%</td><td>10,05%</td><td>12,83%</td></tr>
+              <tr><td>12% – Cesta básica</td><td>5,08%</td><td>9,42%</td><td>12,42%</td></tr>
+              <tr><td>20% (geral)</td><td>7,70%</td><td>19,71%</td><td>21,00%</td></tr>
+              <tr><td>25% – Álcool não antisséptico</td><td>7,26%</td><td>25,85%</td><td>33,00%</td></tr>
+              <tr><td>28%</td><td>8,13%</td><td>30,39%</td><td>37,80%</td></tr>
+              <tr><td rowspan="6"><strong>Varejista</strong></td><td>7% – Cesta básica</td><td>1,54%</td><td>4,20%</td><td>5,95%</td></tr>
+              <tr><td>9,72% – Álcool gel antisséptico ≤1L</td><td>2,82%</td><td>10,05%</td><td>12,83%</td></tr>
+              <tr><td>12% – Cesta básica</td><td>2,64%</td><td>7,20%</td><td>10,20%</td></tr>
+              <tr><td>20% (geral)</td><td>7,70%</td><td>19,71%</td><td>21,00%</td></tr>
+              <tr><td>25% – Álcool não antisséptico</td><td>7,26%</td><td>25,85%</td><td>33,00%</td></tr>
+              <tr><td>28%</td><td>8,13%</td><td>30,39%</td><td>37,80%</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="note">
+          <strong>Observações importantes:</strong><br>
+          • Indústria (Art. 2º): carga líquida de <strong>7,64%</strong> sobre valor da operação + MVA 45% (operações internas).<br>
+          • Cerâmica específica (Art. 2º-A): <strong>4,49%</strong> + MVA 45%.<br>
+          • Quando a alíquota do produto for diferente de 20%, faz-se ajuste proporcional (Art. 2º-B e §6º do Art. 1º).<br>
+          • FECOP e outras exigibilidades (Art. 3º, §1º) são calculadas separadamente e não estão incluídas neste valor de carga líquida da ST.<br>
+          • Consulte sempre a legislação consolidada e atos da SEFAZ-CE, pois percentuais podem ser alterados por decretos posteriores.
+        </div>
+      </div>
+    </div>
+
+    <div class="note">
+      <strong>Aviso:</strong> Esta ferramenta é apenas uma ajuda de cálculo com base na legislação pública do Decreto nº 31.270/2013 e alterações conhecidas até 2023/2024. Não substitui consultoria tributária, Regime Especial, ou a interpretação oficial da SEFAZ-CE. Verifique sempre a redação vigente e eventuais Instruções Normativas.
+    </div>
+  </div>
+
+  <footer>
+    Calculadora baseada no Decreto nº 31.270, de 01/08/2013 (SEFAZ-CE) e alterações posteriores.<br>
+    Material de construção · Ferragens · Ferramentas · Carga líquida do ICMS-ST<br>
+    <a href="https://github.com/silvioalbqrq/dec-31270-2013" target="_blank" rel="noopener">github.com/silvioalbqrq/dec-31270-2013</a>
+  </footer>
+
+  <script>
+    // Tabela de percentuais (Anexo III consolidado – referência)
+    // Anexo III consolidado com redação dada pelo Decreto nº 35.807/2023
+    const tabela = {
+      atacadista: {
+        '7':    { proprio: 2.96, norte: 5.50, sul: 7.25 },
+        '9.72': { proprio: 2.82, norte: 10.05, sul: 12.83 },
+        '12':   { proprio: 5.08, norte: 9.42, sul: 12.42 },
+        '20':   { proprio: 7.70, norte: 19.71, sul: 21.00 },
+        '25':   { proprio: 7.26, norte: 25.85, sul: 33.00 },
+        '28':   { proprio: 8.13, norte: 30.39, sul: 37.80 }
+      },
+      varejista: {
+        '7':    { proprio: 1.54, norte: 4.20, sul: 5.95 },
+        '9.72': { proprio: 2.82, norte: 10.05, sul: 12.83 },
+        '12':   { proprio: 2.64, norte: 7.20, sul: 10.20 },
+        '20':   { proprio: 7.70, norte: 19.71, sul: 21.00 },
+        '25':   { proprio: 7.26, norte: 25.85, sul: 33.00 },
+        '28':   { proprio: 8.13, norte: 30.39, sul: 37.80 }
+      }
+    };
+
+    // Tabs
+    document.querySelectorAll('.tab').forEach(tab => {
+      tab.addEventListener('click', () => {
+        document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+        tab.classList.add('active');
+        document.getElementById('panel-' + tab.dataset.tab).classList.add('active');
+      });
+    });
+
+    document.getElementById('ajusteAliquota').addEventListener('change', function() {
+      document.getElementById('campoAliqProd').style.display = this.value === 'sim' ? 'block' : 'none';
+    });
+
+    function formatBRL(v) {
+      return v.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+    }
+
+    function calcularAtacadoVarejo() {
+      const tipo = document.getElementById('tipoContribuinte').value;
+      const origem = document.getElementById('origem').value;
+      const aliq = document.getElementById('aliquota').value;
+      const valorDoc = parseFloat(document.getElementById('valorDoc').value) || 0;
+      const mva = parseFloat(document.getElementById('mva').value) || 35;
+      const adicionalSN = parseFloat(document.getElementById('adicionalSN').value) || 0;
+
+      if (valorDoc <= 0) {
+        alert('Informe o valor do documento fiscal.');
+        return;
+      }
+
+      let perc = tabela[tipo][aliq][origem];
+      perc += adicionalSN;
+
+      const base = valorDoc * (1 + mva / 100);
+      const icmsST = base * (perc / 100);
+
+      const box = document.getElementById('resultadoAV');
+      document.getElementById('valorST_AV').textContent = formatBRL(icmsST);
+      document.getElementById('detalheAV').innerHTML = `
+        <strong>Base de cálculo:</strong> ${formatBRL(valorDoc)} × (1 + ${mva}%) = ${formatBRL(base)}<br>
+        <strong>Percentual de carga líquida:</strong> ${perc.toFixed(2).replace('.', ',')}%<br>
+        <strong>ICMS-ST a recolher:</strong> ${formatBRL(base)} × ${perc.toFixed(2).replace('.', ',')}% = <strong>${formatBRL(icmsST)}</strong><br>
+        <em>Tipo: ${tipo === 'atacadista' ? 'Atacadista' : 'Varejista'} · Origem: ${origem} · Alíquota ref.: ${aliq}%</em>
+      `;
+      box.classList.add('visible');
+    }
+
+    function calcularIndustria() {
+      const tipo = document.getElementById('tipoIndustria').value;
+      const valorOp = parseFloat(document.getElementById('valorOperacao').value) || 0;
+      const mva = parseFloat(document.getElementById('mvaInd').value) || 45;
+      const ajuste = document.getElementById('ajusteAliquota').value;
+      let perc = tipo === 'ceramica' ? 4.49 : 7.64;
+
+      if (valorOp <= 0) {
+        alert('Informe o valor da operação.');
+        return;
+      }
+
+      if (ajuste === 'sim') {
+        const aliqProd = parseFloat(document.getElementById('aliqProduto').value) || 20;
+        // Ajuste proporcional à carga líquida efetiva (referência 20%)
+        perc = perc * (aliqProd / 20);
+      }
+
+      const base = valorOp * (1 + mva / 100);
+      const icmsST = base * (perc / 100);
+
+      const box = document.getElementById('resultadoInd');
+      document.getElementById('valorST_Ind').textContent = formatBRL(icmsST);
+      document.getElementById('detalheInd').innerHTML = `
+        <strong>Base de cálculo:</strong> ${formatBRL(valorOp)} × (1 + ${mva}%) = ${formatBRL(base)}<br>
+        <strong>Carga líquida aplicada:</strong> ${perc.toFixed(2).replace('.', ',')}%<br>
+        <strong>ICMS-ST a recolher:</strong> ${formatBRL(base)} × ${perc.toFixed(2).replace('.', ',')}% = <strong>${formatBRL(icmsST)}</strong><br>
+        <em>${tipo === 'ceramica' ? 'Cerâmica específica (Art. 2º-A)' : 'Indústria geral (Art. 2º)'} · Operações internas</em>
+      `;
+      box.classList.add('visible');
+    }
+
+    function limpar(tipo) {
+      if (tipo === 'atacado') {
+        document.getElementById('valorDoc').value = '';
+        document.getElementById('resultadoAV').classList.remove('visible');
+      } else {
+        document.getElementById('valorOperacao').value = '';
+        document.getElementById('resultadoInd').classList.remove('visible');
+      }
+    }
+
+    /* ===== Proteção contra cópia do código-fonte =====
+       Bloqueia menu de contexto, DevTools, "ver código-fonte" e "salvar página".
+       Não bloqueia seleção de texto nem Ctrl+C: o conteúdo visível
+       (tabela, resultados, textos) continua podendo ser copiado normalmente. */
+    document.addEventListener('contextmenu', function (e) {
+      e.preventDefault();
+    });
+
+    document.addEventListener('keydown', function (e) {
+      const k = e.key ? e.key.toLowerCase() : '';
+      const blockCombo =
+        e.key === 'F12' ||
+        (e.ctrlKey && k === 'u') ||                                  // Ver código-fonte
+        (e.ctrlKey && k === 's') ||                                  // Salvar página
+        (e.ctrlKey && e.shiftKey && (k === 'i' || k === 'j' || k === 'c')); // DevTools
+
+      if (blockCombo) {
+        e.preventDefault();
+      }
+    });
+
+    // Detecção simples de DevTools aberto (por variação incomum de tamanho de janela)
+    (function () {
+      const threshold = 160;
+      let devtoolsWarned = false;
+      setInterval(function () {
+        const widthGap = window.outerWidth - window.innerWidth > threshold;
+        const heightGap = window.outerHeight - window.innerHeight > threshold;
+        if ((widthGap || heightGap) && !devtoolsWarned) {
+          devtoolsWarned = true;
+          try {
+            if (typeof console.clear === 'function') {
+              console.clear();
+            }
+            if (typeof console.log === 'function') {
+              console.log('%cCódigo protegido.', 'color:#c0392b;font-size:16px;font-weight:bold;');
+            }
+          } catch (err) {
+            /* silencioso: ambiente sem console utilizável */
+          }
+        }
+        if (!widthGap && !heightGap) {
+          devtoolsWarned = false;
+        }
+      }, 1000);
+    })();
+  </script>
+</body>
+</html>
